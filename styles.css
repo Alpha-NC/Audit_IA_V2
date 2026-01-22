@@ -1,0 +1,772 @@
+/* ============================
+   VARIABLES
+   ============================ */
+:root {
+  --bg: #0b1020;
+  --card: #101a33;
+  --text: #eaf0ff;
+  --muted: rgba(234, 240, 255, 0.75);
+  --line: rgba(234, 240, 255, 0.10);
+  --primary: #00E5A8;
+  --danger: #ff5a7a;
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  --radius: 18px;
+  /* Couleur spécifique pour l'analyse express */
+  --analysis-accent: #FF5A7A;
+}
+
+/* ============================
+   RESET & BASE
+   ============================ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  /* Fond uni pour éviter les problèmes de dégradé/banding */
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+/* ============================
+   APP LAYOUT
+   ============================ */
+.app {
+  min-height: 100%;
+  padding-bottom: 80px;
+}
+
+/* ============================
+   TOPBAR
+   ============================ */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(11, 16, 32, 0.65);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand__logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.brand__name {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.brand__tag {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.topbar__nav {
+  display: flex;
+  gap: 12px;
+}
+
+.topbar__link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(234, 240, 255, 0.25);
+}
+
+.topbar__link:hover {
+  color: var(--text);
+  border-bottom-color: var(--primary);
+}
+
+/* ============================
+   MAIN CONTENT - LAYOUT SIDEBAR
+   ============================ */
+.main {
+  display: flex;
+  gap: 24px;
+  padding: 24px 20px;
+  min-height: calc(100vh - 82px - 80px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============================
+   SIDEBAR PERSISTANTE
+   ============================ */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px;
+  align-self: flex-start;
+  height: fit-content;
+}
+
+.sidebar__content {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.sidebar__title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.sidebar__subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
+.sidebar__list {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.6;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.sidebar__list li {
+  margin-bottom: 6px;
+}
+
+.sidebar__footer {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: rgba(234, 240, 255, 0.55);
+}
+
+/* Masquer la sidebar sur la page d'analyse (confirm) */
+.sidebar--hidden {
+  display: none;
+}
+
+/* ============================
+   MAIN CONTENT AREA
+   ============================ */
+.main__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.card {
+  width: 100%;
+  max-width: 720px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 32px;
+  margin: 0 auto;
+}
+
+/* ============================
+   PROGRESS BAR EN HAUT
+   ============================ */
+.progress-top {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 82px;
+  background: var(--card);
+  z-index: 5;
+  margin: -28px -32px 20px -32px;
+  padding: 16px 32px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.progress-top__wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.progress-top__text {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.progress-top__save {
+  color: rgba(234, 240, 255, 0.55);
+  font-size: 12px;
+  text-align: right;
+}
+
+.progress-top__bar {
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(234, 240, 255, 0.12);
+  background: rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.progress-top__fill {
+  height: 100%;
+  width: 0%;
+  background: rgba(0, 229, 168, 0.60);
+  transition: width 0.3s ease;
+}
+
+/* Cacher le progress top sur intro */
+.progress-top--hidden {
+  display: none;
+}
+
+/* ============================
+   BANNER (ERRORS)
+   ============================ */
+.banner {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 90, 122, 0.35);
+  background: rgba(255, 90, 122, 0.10);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  color: rgba(255, 230, 236, 0.98);
+}
+
+.banner--hidden {
+  display: none;
+}
+
+/* ============================
+   STEP HEADER
+   ============================ */
+.stephead {
+  padding: 8px 4px 10px;
+}
+
+.stephead__kicker {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.stephead__title {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.15;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.stephead__subtitle {
+  margin: 10px 0 0;
+  color: var(--muted);
+  max-width: 72ch;
+}
+
+/* ============================
+   STEP BODY (FORM FIELDS)
+   ============================ */
+.stepbody {
+  padding: 14px 4px 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+/* ============================
+   FIELD
+   ============================ */
+.field {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+
+.req {
+  color: var(--primary);
+  font-weight: 900;
+}
+
+/* ============================
+   CONTROL ROW (input + unit)
+   ============================ */
+.controlRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.unitPill {
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 240, 255, 0.14);
+  background: rgba(0, 0, 0, 0.16);
+  color: var(--muted);
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+/* ============================
+   INPUTS
+   ============================ */
+.control input[type="text"],
+.control input[type="email"],
+.control input[type="tel"],
+.control input[type="number"],
+.control select {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 240, 255, 0.14);
+  background: rgba(0, 0, 0, 0.16);
+  color: var(--text);
+  outline: none;
+  font-size: 15px;
+}
+
+.control input:focus,
+.control select:focus {
+  border-color: rgba(0, 229, 168, 0.55);
+  box-shadow: 0 0 0 4px rgba(0, 229, 168, 0.12);
+}
+
+.control select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300E5A8' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* Dropdown options - same background as form */
+.control select option {
+  background: #101a33;
+  color: var(--text);
+  padding: 12px;
+}
+
+/* ============================
+   RADIO / CHECKBOXES
+   ============================ */
+.control .radios,
+.control .checks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 240, 255, 0.10);
+  background: rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.option:hover {
+  border-color: rgba(0, 229, 168, 0.25);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.option input {
+  margin-top: 3px;
+  accent-color: var(--primary);
+}
+
+/* ============================
+   RANGE INPUT
+   ============================ */
+.rangeRow {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.rangeRow input[type="range"] {
+  flex: 1;
+  accent-color: var(--primary);
+  height: 8px;
+  cursor: pointer;
+}
+
+.rangeVal {
+  min-width: 56px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 240, 255, 0.14);
+  background: rgba(0, 0, 0, 0.16);
+  text-align: center;
+  font-weight: 800;
+}
+
+/* ============================
+   ERROR STATES
+   ============================ */
+.error {
+  margin-top: 10px;
+  color: rgba(255, 165, 185, 0.95);
+  font-size: 13px;
+}
+
+.invalid {
+  border-color: rgba(255, 90, 122, 0.55) !important;
+  box-shadow: 0 0 0 4px rgba(255, 90, 122, 0.10) !important;
+}
+
+/* ============================
+   UTILITY CLASSES
+   ============================ */
+.muted {
+  color: var(--muted);
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* ============================
+   STICKY FOOTER (simplifié - boutons uniquement)
+   ============================ */
+.sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+  background: rgba(11, 16, 32, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 20;
+}
+
+.sticky__right {
+  display: flex;
+  gap: 10px;
+}
+
+/* ============================
+   BUTTONS
+   ============================ */
+.btn {
+  border: 1px solid rgba(234, 240, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  padding: 11px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn--xs {
+  padding: 7px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: rgba(0, 229, 168, 0.12);
+  border-color: rgba(0, 229, 168, 0.35);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: rgba(0, 229, 168, 0.16);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  border-color: rgba(0, 229, 168, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ============================
+   ANALYSIS SECTION (PAGE 8) - Couleur #FF5A7A
+   ============================ */
+.analysis {
+  margin-top: 14px;
+}
+
+.analysis--hidden {
+  display: none;
+}
+
+.analysis__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 4px 14px;
+  border-bottom: 1px solid var(--analysis-accent);
+  flex-wrap: wrap;
+}
+
+.analysis__id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.analysis__id .muted {
+  color: var(--analysis-accent);
+}
+
+.analysis__id .mono {
+  color: var(--analysis-accent);
+}
+
+.analysis__frame {
+  width: 100%;
+  height: min(70vh, 780px);
+  border: 2px solid var(--analysis-accent);
+  border-radius: 16px;
+  background: #fff;
+  margin-top: 14px;
+}
+
+.analysis__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px 4px 6px;
+}
+
+/* Boutons spécifiques à l'analyse - couleur accent */
+.analysis .btn--primary {
+  background: rgba(255, 90, 122, 0.15);
+  border-color: var(--analysis-accent);
+  color: var(--text);
+}
+
+.analysis .btn--primary:hover:not(:disabled) {
+  background: rgba(255, 90, 122, 0.25);
+}
+
+.analysis .btn--ghost {
+  border-color: rgba(255, 90, 122, 0.35);
+}
+
+.analysis .btn--ghost:hover:not(:disabled) {
+  border-color: var(--analysis-accent);
+  background: rgba(255, 90, 122, 0.10);
+}
+
+/* Badge de référence dans l'analyse */
+.analysis__meta .btn--ghost {
+  border-color: rgba(255, 90, 122, 0.35);
+}
+
+.analysis__meta .btn--ghost:hover:not(:disabled) {
+  border-color: var(--analysis-accent);
+  background: rgba(255, 90, 122, 0.10);
+}
+
+/* ============================
+   DEV PANEL
+   ============================ */
+.dev {
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.dev--hidden {
+  display: none;
+}
+
+.dev__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.dev__title {
+  font-weight: 800;
+}
+
+.dev__pre {
+  margin: 12px 0 0;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(234, 240, 255, 0.12);
+  background: rgba(0, 0, 0, 0.18);
+  overflow: auto;
+  max-height: 320px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ============================
+   INTRO BULLETS
+   ============================ */
+.intro-list {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.6;
+}
+
+.intro-list li {
+  margin-bottom: 6px;
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 900px) {
+  .main {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+
+  .sidebar__content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .topbar__nav {
+    width: 100%;
+  }
+
+  .card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .progress-top {
+    margin: -14px -14px 16px -14px;
+    padding: 12px 14px;
+    border-radius: 14px 14px 0 0;
+    position: relative;
+    top: 0;
+  }
+
+  .main {
+    padding: 14px;
+  }
+
+  .sticky {
+    justify-content: center;
+    gap: 14px;
+    padding: 12px 16px;
+  }
+
+  .sticky__right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .analysis__meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .analysis__actions {
+    flex-direction: column;
+  }
+
+  .analysis__actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .sidebar__content {
+    padding: 14px;
+  }
+
+  .sidebar__title {
+    font-size: 15px;
+  }
+
+  .sidebar__subtitle,
+  .sidebar__list {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand__tag {
+    display: none;
+  }
+
+  .stephead__title {
+    font-size: 20px;
+  }
+}

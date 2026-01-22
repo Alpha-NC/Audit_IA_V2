@@ -1,0 +1,421 @@
+{
+  "version": "1.3.0",
+  "form_tag": "audit-agences-creatives",
+  "title": "Audit IA — Agences Créatives B2B",
+  "steps": [
+    {
+      "id": "intro",
+      "page": 1,
+      "type": "intro",
+      "title": "Audit IA (3 minutes)",
+      "subtitle": "Identifiez vos quick wins d'automatisation et votre ROI temps.",
+      "bullets": [
+        "Scoring opérationnel instantané",
+        "3 quick wins adaptés à votre agence",
+        "Recommandation claire + prochaine étape"
+      ],
+      "cta": "Commencer"
+    },
+    {
+      "id": "agency",
+      "page": 2,
+      "type": "form",
+      "title": "Votre agence",
+      "fields": [
+        {
+          "id": "agency_type",
+          "type": "select",
+          "label": "Type d'agence",
+          "required": true,
+          "options": [
+            "Agence design & branding (identité, UX/UI, packaging)",
+            "Agence marketing digital & growth (SEA, SEO, social ads)",
+            "Studio production audiovisuelle & motion design",
+            "Agence full-service (design + marketing + vidéo)",
+            "Autre agence créative"
+          ]
+        },
+        {
+          "id": "agency_type_other",
+          "type": "text",
+          "label": "Précisez le type d'agence",
+          "placeholder": "Ex : Agence photo produit, studio 3D...",
+          "autocomplete": "organization-title",
+          "required": { "when": { "field": "agency_type", "equals": "Autre agence créative" } },
+          "showWhen": { "field": "agency_type", "equals": "Autre agence créative" }
+        },
+        {
+          "id": "team_size",
+          "type": "number",
+          "label": "Taille de l'équipe",
+          "required": true,
+          "min": 1,
+          "placeholder": "Ex : 5",
+          "unit": "personnes"
+        },
+        {
+          "id": "client_type",
+          "type": "radio",
+          "label": "Vos clients sont plutôt",
+          "required": true,
+          "options": ["B2B majoritaire", "B2C majoritaire", "Mix B2B/B2C"]
+        },
+        {
+          "id": "avg_project_budget",
+          "type": "select",
+          "label": "Budget moyen par projet",
+          "required": true,
+          "options": ["< 5 000€", "5 000€ - 15 000€", "15 000€ - 50 000€", "> 50 000€"]
+        }
+      ]
+    },
+    {
+      "id": "ops",
+      "page": 3,
+      "type": "form",
+      "title": "Vos défis opérationnels",
+      "fields": [
+        {
+          "id": "biggest_challenge",
+          "type": "select",
+          "label": "Votre défi n°1 aujourd'hui",
+          "required": true,
+          "options": [
+            "Coordination freelances / intervenants externes",
+            "Scope creep (projets qui s'étendent sans budget additionnel)",
+            "Validations client interminables (multiples versions)",
+            "Lead generation & prospection qualifiée",
+            "Reporting clients & suivi projet",
+            "Relances paiements & facturation",
+            "Gestion outils dispersés (trop d'apps mal connectées)",
+            "Briefs clients incomplets ou flous",
+            "Production contenus répétitifs",
+            "Autre défi opérationnel"
+          ]
+        },
+        {
+          "id": "challenge_other",
+          "type": "text",
+          "label": "Précisez le défi",
+          "placeholder": "Ex : Workflow Figma, gestion rushes vidéo...",
+          "autocomplete": "off",
+          "required": { "when": { "field": "biggest_challenge", "equals": "Autre défi opérationnel" } },
+          "showWhen": { "field": "biggest_challenge", "equals": "Autre défi opérationnel" }
+        },
+        {
+          "id": "pain_score",
+          "type": "range",
+          "label": "Niveau de douleur",
+          "required": true,
+          "min": 1,
+          "max": 10,
+          "default": 5,
+          "unit": "/10"
+        },
+        {
+          "id": "time_wasted_weekly",
+          "type": "number",
+          "label": "Temps perdu par semaine",
+          "required": true,
+          "min": 0,
+          "placeholder": "Ex : 10",
+          "unit": "heures/semaine"
+        },
+        {
+          "id": "impact_areas",
+          "type": "checkboxes",
+          "label": "Ce que ça impacte le plus",
+          "required": true,
+          "minItems": 1,
+          "options": [
+            "Perte de temps (heures perdues en tâches manuelles)",
+            "Perte d'argent (dépassements budget, impayés)",
+            "Image de marque (clients insatisfaits, churn)",
+            "Retards de livraison (deadlines non tenues)",
+            "Burnout équipe (surcharge mentale)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "volume",
+      "page": 4,
+      "type": "form",
+      "title": "Volume & impact",
+      "fields": [
+        {
+          "id": "monthly_projects",
+          "type": "number",
+          "label": "Projets par mois",
+          "required": true,
+          "min": 1,
+          "placeholder": "Ex : 8",
+          "unit": "projets/mois"
+        },
+        {
+          "id": "active_clients",
+          "type": "number",
+          "label": "Clients actifs",
+          "required": true,
+          "min": 1,
+          "placeholder": "Ex : 12",
+          "unit": "clients"
+        },
+        {
+          "id": "freelance_count",
+          "type": "number",
+          "label": "Nombre de freelances",
+          "required": false,
+          "min": 0,
+          "placeholder": "Ex : 3",
+          "unit": "freelances"
+        },
+        {
+          "id": "revision_rounds",
+          "type": "select",
+          "label": "Nb moyen de versions / itérations",
+          "required": true,
+          "options": ["1-2", "3-5", "6-10", "> 10"]
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "page": 5,
+      "type": "form",
+      "title": "Outils & stack",
+      "fields": [
+        {
+          "id": "current_tools",
+          "type": "checkboxes",
+          "label": "Outils utilisés aujourd'hui",
+          "required": true,
+          "minItems": 1,
+          "options": [
+            "Notion / Airtable / Databases no-code",
+            "Figma / Adobe Creative Suite",
+            "Slack / Discord / Teams",
+            "Google Drive / Dropbox / WeTransfer",
+            "CRM (HubSpot, Pipedrive, autre)",
+            "Make / Zapier / n8n",
+            "Trello / Asana / Monday",
+            "Frame.io / Vimeo / plateforme vidéo",
+            "Aucun outil structuré (emails + tableurs)",
+            "Autre outil"
+          ]
+        },
+        {
+          "id": "current_tools_other",
+          "type": "text",
+          "label": "Précisez le(s) autre(s) outil(s)",
+          "placeholder": "Ex : ClickUp, Basecamp, Linear...",
+          "autocomplete": "off",
+          "required": { "when": { "field": "current_tools", "includes": "Autre outil" } },
+          "showWhen": { "field": "current_tools", "includes": "Autre outil" }
+        },
+        {
+          "id": "tools_frustration",
+          "type": "radio",
+          "label": "Satisfaction de votre stack",
+          "required": true,
+          "options": [
+            "Très insatisfait (trop d'outils mal connectés)",
+            "Insatisfait (besoin de simplifier)",
+            "Neutre (ça fonctionne mais pas optimal)",
+            "Satisfait (quelques améliorations possibles)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision",
+      "page": 6,
+      "type": "form",
+      "title": "Décision & objectifs",
+      "fields": [
+        {
+          "id": "urgency",
+          "type": "radio",
+          "label": "Urgence",
+          "required": true,
+          "options": ["1-2 semaines", "1 mois", "3 mois", "Pas pressé (exploration)"]
+        },
+        {
+          "id": "decision_power",
+          "type": "radio",
+          "label": "Pouvoir de décision",
+          "required": true,
+          "options": [
+            "Je décide seul(e)",
+            "Décision partagée (2-3 personnes)",
+            "Je dois convaincre (comité/direction)"
+          ]
+        },
+        {
+          "id": "goal_type",
+          "type": "radio",
+          "label": "Objectif principal",
+          "required": true,
+          "options": [
+            "Gagner du temps (heures/semaine)",
+            "Augmenter le nombre de projets livrés",
+            "Réduire le scope creep / dépassements",
+            "Améliorer satisfaction client",
+            "Autre objectif"
+          ]
+        },
+        {
+          "id": "goal_value_range",
+          "type": "select",
+          "label": "Fourchette de valeur cible",
+          "placeholder": "Sélectionnez une fourchette",
+          "required": { "when": { "field": "goal_type", "equals": "Gagner du temps (heures/semaine)" } },
+          "showWhen": { "field": "goal_type", "equals": "Gagner du temps (heures/semaine)" },
+          "options": [
+            "1-5 heures/semaine",
+            "5-10 heures/semaine",
+            "10-20 heures/semaine",
+            "20-40 heures/semaine",
+            "> 40 heures/semaine"
+          ]
+        },
+        {
+          "id": "goal_value_projects",
+          "type": "select",
+          "label": "Fourchette de valeur cible",
+          "placeholder": "Sélectionnez une fourchette",
+          "required": { "when": { "field": "goal_type", "equals": "Augmenter le nombre de projets livrés" } },
+          "showWhen": { "field": "goal_type", "equals": "Augmenter le nombre de projets livrés" },
+          "options": [
+            "+1-2 projets/mois",
+            "+3-5 projets/mois",
+            "+5-10 projets/mois",
+            "+10-20 projets/mois",
+            "> +20 projets/mois"
+          ]
+        },
+        {
+          "id": "goal_value_scope",
+          "type": "select",
+          "label": "Réduction visée du scope creep",
+          "placeholder": "Sélectionnez une fourchette",
+          "required": { "when": { "field": "goal_type", "equals": "Réduire le scope creep / dépassements" } },
+          "showWhen": { "field": "goal_type", "equals": "Réduire le scope creep / dépassements" },
+          "options": [
+            "10-25% de réduction",
+            "25-50% de réduction",
+            "50-75% de réduction",
+            "> 75% de réduction"
+          ]
+        },
+        {
+          "id": "goal_value_satisfaction",
+          "type": "select",
+          "label": "Amélioration visée de la satisfaction",
+          "placeholder": "Sélectionnez une fourchette",
+          "required": { "when": { "field": "goal_type", "equals": "Améliorer satisfaction client" } },
+          "showWhen": { "field": "goal_type", "equals": "Améliorer satisfaction client" },
+          "options": [
+            "+5-10% de satisfaction",
+            "+10-20% de satisfaction",
+            "+20-30% de satisfaction",
+            "> +30% de satisfaction"
+          ]
+        },
+        {
+          "id": "goal_text",
+          "type": "text",
+          "label": "Précisez votre objectif",
+          "placeholder": "Ex : Structurer notre process créatif",
+          "autocomplete": "off",
+          "required": { "when": { "field": "goal_type", "equals": "Autre objectif" } },
+          "showWhen": { "field": "goal_type", "equals": "Autre objectif" }
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "page": 7,
+      "type": "form",
+      "title": "Vos coordonnées",
+      "fields": [
+        {
+          "id": "company_name",
+          "type": "text",
+          "label": "Nom de l'entreprise",
+          "required": true,
+          "placeholder": "Ex : Blue Agency",
+          "autocomplete": "organization"
+        },
+        {
+          "id": "contact_firstname",
+          "type": "text",
+          "label": "Prénom",
+          "required": true,
+          "placeholder": "Ex : Julia",
+          "autocomplete": "given-name"
+        },
+        {
+          "id": "contact_lastname",
+          "type": "text",
+          "label": "Nom",
+          "required": true,
+          "placeholder": "Ex : Dupont",
+          "autocomplete": "family-name"
+        },
+        {
+          "id": "contact_email",
+          "type": "email",
+          "label": "Email",
+          "required": true,
+          "placeholder": "ex: julia@agence.fr",
+          "autocomplete": "email"
+        },
+        {
+          "id": "contact_phone",
+          "type": "tel",
+          "label": "Téléphone",
+          "required": true,
+          "placeholder": "Ex : 06 12 34 56 78",
+          "autocomplete": "tel"
+        },
+        {
+          "id": "preferred_channel",
+          "type": "radio",
+          "label": "Canal préféré",
+          "required": true,
+          "options": ["Email", "Téléphone", "WhatsApp"]
+        },
+        {
+          "id": "preferred_time",
+          "type": "radio",
+          "label": "Créneau préféré",
+          "required": true,
+          "options": ["Matin", "Après-midi", "Soir"]
+        },
+        {
+          "id": "consent_rgpd",
+          "type": "checkbox_link",
+          "label": "J'accepte que mes données soient utilisées pour me recontacter conformément à la",
+          "linkText": "Politique de confidentialité",
+          "linkUrl": "politique-confidentialite.html",
+          "required": true
+        },
+        {
+          "id": "hp_field",
+          "type": "text",
+          "label": "Ne pas remplir",
+          "hidden": true,
+          "tabindex": -1,
+          "autocomplete": "off"
+        }
+      ]
+    },
+    {
+      "id": "confirm",
+      "page": 8,
+      "type": "confirm",
+      "title": "Votre analyse express"
+    }
+  ]
+}
