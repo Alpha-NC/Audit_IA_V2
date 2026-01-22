@@ -589,32 +589,32 @@ a {
 
 /* Boutons spécifiques à l'analyse - couleur accent */
 .analysis .btn--primary {
-  background: rgba(255, 90, 122, 0.15);
+  background: #00e5a8;
   border-color: var(--analysis-accent);
   color: var(--text);
 }
 
 .analysis .btn--primary:hover:not(:disabled) {
-  background: rgba(255, 90, 122, 0.25);
+  background: #00e5a8;
 }
 
 .analysis .btn--ghost {
-  border-color: rgba(255, 90, 122, 0.35);
+  border-color: #00e5a8;
 }
 
 .analysis .btn--ghost:hover:not(:disabled) {
   border-color: var(--analysis-accent);
-  background: rgba(255, 90, 122, 0.10);
+  background: #00e5a8;
 }
 
 /* Badge de référence dans l'analyse */
 .analysis__meta .btn--ghost {
-  border-color: rgba(255, 90, 122, 0.35);
+  border-color: #00e5a8;
 }
 
 .analysis__meta .btn--ghost:hover:not(:disabled) {
   border-color: var(--analysis-accent);
-  background: rgba(255, 90, 122, 0.10);
+  background: #00e5a8;
 }
 
 /* ============================
