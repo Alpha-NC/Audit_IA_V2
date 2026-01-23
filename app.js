@@ -13,7 +13,8 @@ const CONFIG = {
 const STORAGE_KEY = `${CONFIG.FORM_TAG}:v1`;
 const TTL_DAYS = 30;
 const SAVE_DEBOUNCE_MS = 250;
-const TOTAL_PAGES = 8;
+const TOTAL_PAGES = 8; // Total réel des pages (incluant intro et confirm)
+const FORM_STEPS_COUNT = 7; // Nombre d'étapes de formulaire (hors intro, incluant confirm pour l'affichage)
 
 const DEV = new URLSearchParams(location.search).get("dev") === "1";
 
@@ -193,8 +194,11 @@ function isFieldRequired(field) {
 function progressInfo() {
   const step = currentStep();
   const page = step?.page || 1;
-  const pct = Math.round(((page - 1) / (TOTAL_PAGES - 1)) * 100);
-  return { page, pct };
+  // Calcul pour le compteur 1/7 : page - 1 (car intro = page 1)
+  // Page 2 = étape 1, Page 3 = étape 2, etc.
+  const formStep = Math.max(1, page - 1); // étape de formulaire (1 à 7)
+  const pct = Math.round((formStep / FORM_STEPS_COUNT) * 100);
+  return { page, formStep, pct };
 }
 
 function escapeHtml(str) {
@@ -245,12 +249,18 @@ function updateSidebarVisibility() {
 
 function updateProgressBar() {
   if (el.progressTop) {
-    el.progressTop.classList.toggle("progress-top--hidden", isIntroStep());
+    // Cacher sur intro ET sur confirm (analyse)
+    el.progressTop.classList.toggle("progress-top--hidden", isIntroStep() || isConfirmStep());
   }
   const p = progressInfo();
   const pct = isConfirmStep() ? 100 : p.pct;
   if (el.progressTextTop) {
-    el.progressTextTop.textContent = isIntroStep() ? "Prêt ?" : (isConfirmStep() ? "Analyse reçue" : `Progression : page ${p.page}/${TOTAL_PAGES}`);
+    // Afficher "1/7" à "7/7" (pas sur intro ni confirm)
+    if (isIntroStep() || isConfirmStep()) {
+      el.progressTextTop.textContent = "";
+    } else {
+      el.progressTextTop.textContent = `${p.formStep}/${FORM_STEPS_COUNT}`;
+    }
   }
   if (el.progressBarTop) {
     el.progressBarTop.style.width = `${pct}%`;
@@ -262,7 +272,10 @@ function render() {
   const step = currentStep();
   el.stepTitle.textContent = step.title || "";
   el.stepSubtitle.textContent = step.subtitle || "";
-  el.stepKicker.textContent = step.page ? `Étape ${step.page}/${TOTAL_PAGES}` : "";
+  
+  // Le kicker n'affiche rien (le compteur est dans progress-top)
+  el.stepKicker.textContent = "";
+  
   updateProgressBar();
   updateSidebarVisibility();
   el.stepBody.innerHTML = "";

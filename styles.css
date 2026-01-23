@@ -11,8 +11,6 @@
   --danger: #ff5a7a;
   --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
   --radius: 18px;
-  /* Couleur spécifique pour l'analyse express */
-  --analysis-accent: #00E5A8;
 }
 
 /* ============================
@@ -29,7 +27,6 @@ html, body {
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  /* Fond uni pour éviter les problèmes de dégradé/banding */
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
@@ -45,7 +42,6 @@ a {
    ============================ */
 .app {
   min-height: 100%;
-  padding-bottom: 80px;
 }
 
 /* ============================
@@ -111,7 +107,7 @@ a {
   display: flex;
   gap: 24px;
   padding: 24px 20px;
-  min-height: calc(100vh - 82px - 80px);
+  min-height: calc(100vh - 82px);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -170,7 +166,6 @@ a {
   color: rgba(234, 240, 255, 0.55);
 }
 
-/* Masquer la sidebar sur la page d'analyse (confirm) */
 .sidebar--hidden {
   display: none;
 }
@@ -219,9 +214,9 @@ a {
 }
 
 .progress-top__text {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .progress-top__save {
@@ -245,7 +240,6 @@ a {
   transition: width 0.3s ease;
 }
 
-/* Cacher le progress top sur intro */
 .progress-top--hidden {
   display: none;
 }
@@ -381,7 +375,6 @@ a {
   padding-right: 36px;
 }
 
-/* Dropdown options - same background as form */
 .control select option {
   background: #101a33;
   color: var(--text);
@@ -472,71 +465,89 @@ a {
 }
 
 /* ============================
-   STICKY FOOTER (simplifié - boutons uniquement)
+   CARD ACTIONS - Boutons Précédent/Suivant PREMIUM
    ============================ */
-.sticky {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.card__actions {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  padding: 14px 18px;
+  padding: 24px 0 0;
+  margin-top: 20px;
   border-top: 1px solid var(--line);
-  background: rgba(11, 16, 32, 0.85);
-  backdrop-filter: blur(10px);
-  z-index: 20;
 }
 
-.sticky__right {
-  display: flex;
-  gap: 10px;
+.card__actions--hidden {
+  display: none;
 }
 
 /* ============================
-   BUTTONS
+   BUTTONS - Style Premium
    ============================ */
 .btn {
-  border: 1px solid rgba(234, 240, 255, 0.16);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
-  padding: 11px 14px;
-  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 50px;
   cursor: pointer;
   font-weight: 700;
-  font-size: 14px;
-  transition: background 0.15s, border-color 0.15s;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  border: none;
+  min-width: 140px;
 }
 
-.btn--xs {
-  padding: 7px 10px;
-  border-radius: 12px;
-  font-size: 12px;
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .btn:disabled {
-  opacity: 0.55;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
-.btn--primary {
-  background: rgba(0, 229, 168, 0.12);
-  border-color: rgba(0, 229, 168, 0.35);
-}
-
-.btn--primary:hover:not(:disabled) {
-  background: rgba(0, 229, 168, 0.16);
+/* Bouton Précédent - Style sombre/neutre */
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(234, 240, 255, 0.15);
+  color: var(--muted);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn--ghost:hover:not(:disabled) {
-  border-color: rgba(0, 229, 168, 0.35);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(234, 240, 255, 0.25);
+  color: var(--text);
+}
+
+/* Bouton Suivant - CTA Primary avec gradient */
+.btn--primary {
+  background: linear-gradient(135deg, #00E5A8 0%, #00C896 100%);
+  color: #0b1020;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 229, 168, 0.35);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #00F5B8 0%, #00D8A6 100%);
+  box-shadow: 0 6px 20px rgba(0, 229, 168, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn--primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn--xs {
+  padding: 8px 14px;
+  font-size: 12px;
+  min-width: auto;
+  border-radius: 10px;
 }
 
 /* ============================
-   ANALYSIS SECTION (PAGE 8) - Couleur #FF5A7A
+   ANALYSIS SECTION - COULEURS D'ORIGINE
    ============================ */
 .analysis {
   margin-top: 14px;
@@ -552,7 +563,7 @@ a {
   align-items: center;
   gap: 12px;
   padding: 10px 4px 14px;
-  border-bottom: 1px solid var(--analysis-accent);
+  border-bottom: 1px solid var(--line);
   flex-wrap: wrap;
 }
 
@@ -563,18 +574,10 @@ a {
   flex-wrap: wrap;
 }
 
-.analysis__id .muted {
-  color: var(--analysis-accent);
-}
-
-.analysis__id .mono {
-  color: var(--analysis-accent);
-}
-
 .analysis__frame {
   width: 100%;
   height: min(70vh, 780px);
-  border: 2px solid var(--analysis-accent);
+  border: 1px solid var(--line);
   border-radius: 16px;
   background: #fff;
   margin-top: 14px;
@@ -585,36 +588,6 @@ a {
   gap: 10px;
   flex-wrap: wrap;
   padding: 14px 4px 6px;
-}
-
-/* Boutons spécifiques à l'analyse - couleur accent */
-.analysis .btn--primary {
-  background: #00e5a8;
-  border-color: var(--analysis-accent);
-  color: var(--text);
-}
-
-.analysis .btn--primary:hover:not(:disabled) {
-  background: #00e5a8;
-}
-
-.analysis .btn--ghost {
-  border-color: #00e5a8;
-}
-
-.analysis .btn--ghost:hover:not(:disabled) {
-  border-color: var(--analysis-accent);
-  background: #00e5a8;
-}
-
-/* Badge de référence dans l'analyse */
-.analysis__meta .btn--ghost {
-  border-color: #00e5a8;
-}
-
-.analysis__meta .btn--ghost:hover:not(:disabled) {
-  border-color: var(--analysis-accent);
-  background: #00e5a8;
 }
 
 /* ============================
@@ -717,20 +690,15 @@ a {
     padding: 14px;
   }
 
-  .sticky {
-    justify-content: center;
-    gap: 14px;
-    padding: 12px 16px;
-  }
-
-  .sticky__right {
-    width: 100%;
-    justify-content: space-between;
+  /* Boutons restent sur une ligne en mobile si possible */
+  .card__actions {
+    gap: 12px;
   }
 
   .btn {
-    flex: 1;
-    text-align: center;
+    padding: 12px 20px;
+    min-width: 120px;
+    font-size: 14px;
   }
 
   .analysis__meta {
@@ -758,6 +726,18 @@ a {
   .sidebar__subtitle,
   .sidebar__list {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Stack les boutons sur très petit écran */
+  .card__actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
   }
 }
 
